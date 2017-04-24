@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap'
 
 export default class TodoListRoot extends Component {
   constructor(props) {
     super(props);
 
     this.state = {items: []};
+
+    this.todoListItemAdded = this.todoListItemAdded.bind(this);
+  }
+
+  todoListItemAdded(item) {
+    // destruct "items" from state (equivlent to const items = this.state.items;)
+    const { items } = this.state; 
+    
+    // put the new item in an array of one value
+    const arrayOfNewItem = [item]; 
+
+    // create a new array, by concactenating the two arrays
+    const newArrayWithAllItems = items.concat(arrayOfNewItem); 
+
+    this.setState({items: newArrayWithAllItems});
   }
 
   render() {
