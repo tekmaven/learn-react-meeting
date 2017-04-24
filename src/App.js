@@ -28,9 +28,7 @@ class App extends Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={12}>
               <TodoList />
-            </Col>
           </Row>
         </Grid>
       </div>
