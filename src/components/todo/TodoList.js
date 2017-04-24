@@ -48,8 +48,8 @@ export default class TodoList extends Component {
   render() {
     return (
       <div>
-          <NewTodoItem onAdd={this.todoListItemAdded}/>
-          <Checklist items={this.state.items} onChange={this.todoListItemStatusChange} />
+          <NewTodoItem />
+          <Checklist onChange={this.todoListItemStatusChange} />
       </div>
     );
   }

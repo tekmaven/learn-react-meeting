@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { InputGroup, ListGroupItem } from 'react-bootstrap'
 
-export default class ChecklistItem extends Component {
+const mapStateToProps = (state, ownProps) => {
+  return {
+    value: state.todoList.items[ownProps.index]
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTodo: (index, newValue) => dispatch({ type: "TOGGLE_TODO", index, newValue})
+  };
+}
+
+
+class ChecklistItem extends Component {
   constructor(props) {
     super(props);
 
@@ -9,7 +23,7 @@ export default class ChecklistItem extends Component {
   }
 
   itemCheckboxToggled(event) {
-    this.props.onChange({index: this.props.index, newValue: event.target.checked});
+    this.props.toggleTodo(this.props.index, event.target.checked);
   }
 
   render() {
@@ -30,3 +44,5 @@ export default class ChecklistItem extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChecklistItem);
