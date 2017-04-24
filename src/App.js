@@ -17,13 +17,13 @@ class App extends Component {
         <Grid>
           <Row>
             <Col xs={6}>
-              <TodoListPanel title="Welcome!">
-                This is going to make us a million dollars!!!
+              <TodoListPanel title="Welcome to the ToDo List App!">
+                Hey @Microsoft, you should buy this ToDo app!
               </TodoListPanel>
             </Col>
             <Col xs={6}>
               <TodoListPanel title="Need help???">
-                asd <a href='google.com'>google</a>
+                We have no support, you may want to do a <a href='google.com'>Google Search</a>.
               </TodoListPanel>
             </Col>
           </Row>
