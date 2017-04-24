@@ -83,6 +83,12 @@ class TodoChecklist extends Component {
 
 class TodoChecklistItem extends Component {
   render() {
-    return (<ListGroupItem>{this.props.value}</ListGroupItem>);
+    return (
+      <ListGroupItem>        
+          <InputGroup>
+            <span className="form-control">{this.props.value}</span>
+          </InputGroup>
+      </ListGroupItem>
+    );
   }
 }
