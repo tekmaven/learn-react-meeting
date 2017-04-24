@@ -94,7 +94,7 @@ class TodoListInput extends Component {
 class TodoChecklist extends Component {
   render() {
     return (
-      <ListGroup style={{paddingTop: '5px'}}>
+      <ListGroup style={{paddingTop: '15px'}}>
           {this.props.items.map((item, i) => <TodoChecklistItem key={i} index={i} value={item} onChange={this.props.onChange} />)}
       </ListGroup>
     );
