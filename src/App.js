@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Grid, Row, Col } from 'react-bootstrap'
-import TodoListPanel from './TodoListPanel'
-import TodoListRoot from './TodoListRoot'
+import InformationPanel from './components/InformationPanel'
+import TodoList from './components/todo/TodoList'
 
 class App extends Component {
   render() {
@@ -17,19 +17,19 @@ class App extends Component {
         <Grid>
           <Row>
             <Col xs={6}>
-              <TodoListPanel title="Welcome to the ToDo List App!">
+              <InformationPanel title="Welcome to the ToDo List App!">
                 Hey @Microsoft, you should buy this ToDo app!
-              </TodoListPanel>
+              </InformationPanel>
             </Col>
             <Col xs={6}>
-              <TodoListPanel title="Need help???">
+              <InformationPanel title="Need help???">
                 We have no support, you may want to do a <a href='google.com'>Google Search</a>.
-              </TodoListPanel>
+              </InformationPanel>
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <TodoListRoot />
+              <TodoList />
             </Col>
           </Row>
         </Grid>
