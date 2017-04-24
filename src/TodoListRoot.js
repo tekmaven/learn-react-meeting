@@ -8,6 +8,7 @@ export default class TodoListRoot extends Component {
     this.state = {items: []};
 
     this.todoListItemAdded = this.todoListItemAdded.bind(this);
+    this.todoListItemStatusChange = this.todoListItemStatusChange.bind(this);
   }
 
   todoListItemAdded(item) {
@@ -15,7 +16,7 @@ export default class TodoListRoot extends Component {
     const { items } = this.state; 
     
     // put the new item in an array of one value
-    const arrayOfNewItem = [item]; 
+    const arrayOfNewItem = [{completed: false, text: item}]; 
 
     // create a new array, by concactenating the two arrays
     const newArrayWithAllItems = items.concat(arrayOfNewItem); 
@@ -23,11 +24,18 @@ export default class TodoListRoot extends Component {
     this.setState({items: newArrayWithAllItems});
   }
 
+  todoListItemStatusChange({index, newValue}) {
+    const item = this.state.items[index];
+    item.completed = newValue;
+
+    this.setState({items: this.state.items});
+  }
+
   render() {
     return (
       <div>
-          <TodoListInput onAdd={(item) => this.setState({items: this.state.items.concat([item])} )}/>
-          <TodoChecklist items={this.state.items}/>
+          <TodoListInput onAdd={this.todoListItemAdded}/>
+          <TodoChecklist items={this.state.items} onChange={this.todoListItemStatusChange} />
       </div>
     );
   }
@@ -75,19 +83,37 @@ class TodoChecklist extends Component {
   render() {
     return (
       <ListGroup style={{paddingTop: '5px'}}>
-          {this.props.items.map((item, i) => <TodoChecklistItem key={i} value={item} />)}
+          {this.props.items.map((item, i) => <TodoChecklistItem key={i} index={i} value={item} onChange={this.props.onChange} />)}
       </ListGroup>
     );
   }
 }
 
 class TodoChecklistItem extends Component {
+  constructor(props) {
+    super(props);
+
+    this.itemCheckboxToggled = this.itemCheckboxToggled.bind(this);
+  }
+
+  itemCheckboxToggled(event) {
+    this.props.onChange({index: this.props.index, newValue: event.target.checked});
+  }
+
   render() {
-    return (
+    const { completed, text} = this.props.value;
+
+    let textDecValue = completed ? 'line-through' : 'none';
+
+
+    return (      
       <ListGroupItem>        
-          <InputGroup>
-            <span className="form-control">{this.props.value}</span>
-          </InputGroup>
+        <InputGroup>
+          <InputGroup.Addon>
+            <input type="checkbox" checked={completed} onChange={this.itemCheckboxToggled} />
+          </InputGroup.Addon>
+          <span className="form-control" style={{textDecoration: textDecValue}}>{text}</span>
+        </InputGroup>
       </ListGroupItem>
     );
   }
