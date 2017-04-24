@@ -24,11 +24,23 @@ export default class TodoListRoot extends Component {
     this.setState({items: newArrayWithAllItems});
   }
 
-  todoListItemStatusChange({index, newValue}) {
-    const item = this.state.items[index];
-    item.completed = newValue;
+  todoListItemStatusChange({index, newValue: completed}) {
+    // create a copy of the array
+    const copiedArray = this.state.items.slice();
+    
+    // get the text value of the current item
+    const {text} = copiedArray[index];
 
-    this.setState({items: this.state.items});
+    // create a new object with the updated status and existing text value
+    // and place it over the old item's position in the array
+    copiedArray[index] = { completed, text };
+
+    // this will print the old item and the new item
+    // notice, that the current state has the old value
+    console.log(this.state.items[index], copiedArray[index]);
+
+    // set the new state to the new array
+    this.setState({items: copiedArray});
   }
 
   render() {
