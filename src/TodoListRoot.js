@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, FormControl, InputGroup, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
 
 export default class TodoListRoot extends Component {
   constructor(props) {
@@ -37,23 +38,35 @@ class TodoListInput extends Component {
     super(props);
 
     this.state = {value: ""};
-    this.addClicked = this.addClicked.bind(this);
+    this.textChange = this.textChange.bind(this);
+    this.formSubmit = this.formSubmit.bind(this);
   }
 
-  addClicked() {
+  textChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  formSubmit(event) {
+    event.preventDefault();
+
     if(!this.state.value) {
       return;
     }
+
     this.props.onAdd(this.state.value);
     this.setState({value:""});
   }
 
   render() {
     return (
-      <div>
-        <input style={{width: "65%"}} value={this.state.value} onChange={(event) => this.setState({value: event.target.value})}/>
-        <button onClick={this.addClicked}>Add</button>
-      </div>
+      <Form onSubmit={this.formSubmit}>
+        <InputGroup>
+          <FormControl value={this.state.value} onChange={this.textChange}/>
+          <InputGroup.Button>
+            <Button type="submit" bsStyle="primary">Add</Button>
+          </InputGroup.Button>
+        </InputGroup>
+      </Form>
     );
   }
 }
@@ -61,17 +74,15 @@ class TodoListInput extends Component {
 class TodoChecklist extends Component {
   render() {
     return (
-      <div>
-        <ul>
-          {this.props.items.map((item, i) => <TodoChecklistItem value={item} />)}
-        </ul>
-      </div>
+      <ListGroup style={{paddingTop: '5px'}}>
+          {this.props.items.map((item, i) => <TodoChecklistItem key={i} value={item} />)}
+      </ListGroup>
     );
   }
 }
 
 class TodoChecklistItem extends Component {
   render() {
-    return (<li>{this.props.value}</li>);
+    return (<ListGroupItem>{this.props.value}</ListGroupItem>);
   }
 }
