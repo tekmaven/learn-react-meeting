@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Grid, Row, Col } from 'react-bootstrap'
 import InformationPanel from './components/InformationPanel'
 import TodoList from './components/todo/TodoList'
+import StateView from './components/StateView'
 
 class App extends Component {
   render() {
@@ -28,8 +29,11 @@ class App extends Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={12}>
-              <TodoList />
+            <Col xs={6}>
+              <TodoList/>
+            </Col>
+            <Col xs={6}>
+              <StateView />
             </Col>
           </Row>
         </Grid>
