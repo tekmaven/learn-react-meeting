@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Form, FormControl, InputGroup, Button } from 'react-bootstrap'
 
-export default class NewTodoItem extends Component {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newTodo: (text) => dispatch({ type: "NEW_TODO", text})
+  };
+}
+
+class NewTodoItem extends Component {
   constructor(props) {
     super(props);
 
@@ -21,7 +28,7 @@ export default class NewTodoItem extends Component {
       return;
     }
 
-    this.props.onAdd(this.state.value);
+    this.props.newTodo(this.state.value);
     this.setState({value:""});
   }
 
@@ -38,3 +45,5 @@ export default class NewTodoItem extends Component {
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(NewTodoItem);
